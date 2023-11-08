@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedalexa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pedalexa <pedalexa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 00:12:43 by pedalexa          #+#    #+#             */
-/*   Updated: 2023/10/19 16:46:31 by pedalexa         ###   ########.fr       */
+/*   Updated: 2023/11/08 15:32:58 by pedalexa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
+
 
 char	*extract_line(char *bacia_buffer)
 {
@@ -28,6 +25,8 @@ char	*extract_line(char *bacia_buffer)
 	{
 		i++;
 	}
+	if (bacia_buffer[i] == '\n')
+		i++;
 	line = (char *)malloc((i + 1) * sizeof(char));
 	while (n <= i)
 	{
@@ -35,7 +34,6 @@ char	*extract_line(char *bacia_buffer)
 		n++;
 	}
 	line[n] = '\0';
-
 	return (line);
 }
 char	*obtain_remaining(char *bacia_buffer)
@@ -95,9 +93,9 @@ char	*get_next_line(int fd)
 		free(bacia_buffer);
 		return (NULL);
 	}
-	//line = extract_line(bacia_buffer);
-	//bacia_buffer = obtain_remaining(bacia_buffer);
-	return (bacia_buffer);
+	line = extract_line(bacia_buffer);
+	bacia_buffer = obtain_remaining(bacia_buffer);
+	return (line);
 }
 
 int main (void)
@@ -114,18 +112,11 @@ int main (void)
 		printf("Error opening file");
 		return (1);
 	}
-	printf("%s", get_next_line(fd));
-/*
-	while (1)
+	while ((line = get_next_line(fd)) != NULL)
 	{
-		line = get_next_line(fd);
-		if (line == NULL)
-			break;
-		count++;
 		printf("[%d]: %s\n",count, line);
 		free(line);
-		line = NULL;
-	} */
+	}
 	close(fd);
 	return (0);
 }

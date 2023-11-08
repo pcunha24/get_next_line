@@ -3,16 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedalexa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pedalexa <pedalexa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:25:47 by pedalexa          #+#    #+#             */
-/*   Updated: 2023/10/19 15:44:52 by pedalexa         ###   ########.fr       */
+/*   Updated: 2023/11/08 15:16:41 by pedalexa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+#include <stdlib.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 
 #ifndef BUFFER_SIZE
