@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedalexa <pedalexa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedalexa <pedalexa@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:25:47 by pedalexa          #+#    #+#             */
-/*   Updated: 2023/11/08 15:16:41 by pedalexa         ###   ########.fr       */
+/*   Updated: 2023/11/20 15:48:47 by pedalexa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@
 # endif
 
 char	*get_next_line(int fd);
-void	ft_bzero(void *ptr, size_t n);
-void	*ft_calloc(size_t n, size_t size);
-char	*ft_strchr(const char *str, int c);
+void	ft_bzero(char *ptr);
 size_t	ft_strlen(const char *str);
-char	*ft_strjoin(const char *s1, const char *s2);
+char	*ft_strjoin(char *s1, char *s2);
 
 #endif
