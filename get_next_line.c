@@ -6,39 +6,41 @@
 /*   By: pedalexa <pedalexa@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 00:12:43 by pedalexa          #+#    #+#             */
-/*   Updated: 2023/11/20 15:55:30 by pedalexa         ###   ########.fr       */
+/*   Updated: 2023/11/21 15:33:56 by pedalexa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char    *get_next_line (int fd)
+char	*get_next_line(int fd)
 {
-    static char    buffer[BUFFER_SIZE + 1];
-    char		*line;
-    int         i;
+	static char	buffer[BUFFER_SIZE + 1];
+	int			bytes_read;
+	char		*line;
+	int			flag;
 
-    line = NULL;
-	if (fd < 0 || BUFFER_SIZE < 0)
-		return(NULL);
-    while (read(fd, buffer, BUFFER_SIZE) > 0)
-    {
-        i = 0;
-        //printf("buffer- %s\n", buffer);
-        line = ft_strjoin(line, buffer);
-        // printf("buffer- %s\n", buffer);
-        // printf("line - %s\n", line);
-        ft_bzero(buffer);
-        while (line[i++])
-        {
-            if (line[i] == '\n')
-                return (line);
-        }
-        
-    }
-	return (line);
-    
+	line = NULL;
+	flag = 0;
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	while (1)
+	{
+		if (buffer[0] == '\0')
+		{
+			bytes_read = read(fd, buffer, BUFFER_SIZE);
+			if (bytes_read == 0)
+				return (line);
+			if (bytes_read < 0)
+				return (free(line), NULL);
+		}
+		line = ft_strjoin(line, buffer);
+		ft_bzero_buffer(buffer);
+		flag = check_endl(line);
+		if (flag != 0)
+			return (ft_bzero_line(line, flag));
+	}
 }
+/*
 int main (void)
 {
 	char	*filename = "file.txt";
@@ -46,21 +48,24 @@ int main (void)
 	char	*line;
 	int	count;
 
-	count = 0;
+	count = 1;
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 	{
 		printf("Error opening file");
 		return (1);
 	}
-    // line = get_next_line(fd);
-    // printf("%s", line);
-    free(line);
+	// line = get_next_line(fd);
+	// printf("linha 1: %s", line);
+	// line = get_next_line(fd);
+	// printf("linha 2: %s", line);
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		printf("[%d]: %s\n",count, line);
 		free(line);
+		count++;
 	}
 	close(fd);
 	return (0);
 }
+*/
